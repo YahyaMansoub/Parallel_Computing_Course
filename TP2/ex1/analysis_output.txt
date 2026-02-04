@@ -1,0 +1,315 @@
+
+================================================================================
+ANALYSIS FOR OPTIMIZATION LEVEL: -O0
+================================================================================
+
+
+DOUBLE TYPE (size: 8 bytes)
+--------------------------------------------------------------------------------
+Total data: 7.63 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.267 ms
+
+Performance Summary:
+  U=1  (no unroll):     2.737 ms
+  Best (U=4):          2.637 ms  (speedup: 1.04x)
+  Worst (U=1):         2.737 ms
+
+Efficiency vs bandwidth limit: 10.1%
+  → COMPUTE-LIMITED: Loop overhead and ILP dominate
+
+Unrolling Speedups (vs U=1):
+  U=2:   1.02x
+  U=4:   1.04x
+  U=8:   1.01x
+  U=16:  1.03x
+  U=32:  1.02x
+
+Performance saturates around U=4
+Further unrolling provides diminishing returns
+
+
+FLOAT TYPE (size: 4 bytes)
+--------------------------------------------------------------------------------
+Total data: 3.81 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.133 ms
+
+Performance Summary:
+  U=1  (no unroll):     2.669 ms
+  Best (U=4):          2.625 ms  (speedup: 1.02x)
+  Worst (U=2):         2.672 ms
+
+Efficiency vs bandwidth limit: 5.1%
+  → COMPUTE-LIMITED: Loop overhead and ILP dominate
+
+Unrolling Speedups (vs U=1):
+  U=2:   1.00x
+  U=4:   1.02x
+  U=8:   1.01x
+  U=16:  1.01x
+  U=32:  1.01x
+
+Performance saturates around U=4
+Further unrolling provides diminishing returns
+
+
+INT TYPE (size: 4 bytes)
+--------------------------------------------------------------------------------
+Total data: 3.81 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.133 ms
+
+Performance Summary:
+  U=1  (no unroll):     2.123 ms
+  Best (U=16):          0.631 ms  (speedup: 3.36x)
+  Worst (U=1):         2.123 ms
+
+Efficiency vs bandwidth limit: 21.1%
+  → COMPUTE-LIMITED: Loop overhead and ILP dominate
+
+Unrolling Speedups (vs U=1):
+  U=2:   1.77x
+  U=4:   2.86x
+  U=8:   3.24x
+  U=16:  3.36x
+  U=32:  3.21x
+
+Performance saturates around U=16
+Further unrolling provides diminishing returns
+
+
+SHORT TYPE (size: 2 bytes)
+--------------------------------------------------------------------------------
+Total data: 1.91 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.067 ms
+
+Performance Summary:
+  U=1  (no unroll):     2.039 ms
+  Best (U=16):          0.597 ms  (speedup: 3.42x)
+  Worst (U=1):         2.039 ms
+
+Efficiency vs bandwidth limit: 11.2%
+  → COMPUTE-LIMITED: Loop overhead and ILP dominate
+
+Unrolling Speedups (vs U=1):
+  U=2:   1.83x
+  U=4:   2.78x
+  U=8:   3.23x
+  U=16:  3.42x
+  U=32:  3.08x
+
+Performance saturates around U=16
+Further unrolling provides diminishing returns
+
+
+================================================================================
+ANALYSIS FOR OPTIMIZATION LEVEL: -O2
+================================================================================
+
+
+DOUBLE TYPE (size: 8 bytes)
+--------------------------------------------------------------------------------
+Total data: 7.63 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.267 ms
+
+Performance Summary:
+  U=1  (no unroll):     1.175 ms
+  Best (U=8):          0.732 ms  (speedup: 1.60x)
+  Worst (U=1):         1.175 ms
+
+Efficiency vs bandwidth limit: 36.4%
+  → COMPUTE-LIMITED: Loop overhead and ILP dominate
+
+Unrolling Speedups (vs U=1):
+  U=2:   1.51x
+  U=4:   1.54x
+  U=8:   1.60x
+  U=16:  1.55x
+  U=32:  1.45x
+
+Performance saturates around U=8
+Further unrolling provides diminishing returns
+
+
+FLOAT TYPE (size: 4 bytes)
+--------------------------------------------------------------------------------
+Total data: 3.81 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.133 ms
+
+Performance Summary:
+  U=1  (no unroll):     0.791 ms
+  Best (U=16):          0.752 ms  (speedup: 1.05x)
+  Worst (U=1):         0.791 ms
+
+Efficiency vs bandwidth limit: 17.7%
+  → COMPUTE-LIMITED: Loop overhead and ILP dominate
+
+Unrolling Speedups (vs U=1):
+  U=2:   1.04x
+  U=4:   1.05x
+  U=8:   1.01x
+  U=16:  1.05x
+  U=32:  1.05x
+
+Performance saturates around U=16
+Further unrolling provides diminishing returns
+
+
+INT TYPE (size: 4 bytes)
+--------------------------------------------------------------------------------
+Total data: 3.81 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.133 ms
+
+Performance Summary:
+  U=1  (no unroll):     0.353 ms
+  Best (U=16):          0.156 ms  (speedup: 2.26x)
+  Worst (U=1):         0.353 ms
+
+Efficiency vs bandwidth limit: 85.3%
+  → BANDWIDTH-LIMITED: Performance close to memory bandwidth limit
+
+Unrolling Speedups (vs U=1):
+  U=2:   1.36x
+  U=4:   2.00x
+  U=8:   1.74x
+  U=16:  2.26x
+  U=32:  2.04x
+
+Performance saturates around U=16
+Further unrolling provides diminishing returns
+
+
+SHORT TYPE (size: 2 bytes)
+--------------------------------------------------------------------------------
+Total data: 1.91 MB
+Assumed bandwidth: 30.0 GB/s
+Theoretical minimum time (bandwidth-limited): 0.067 ms
+
+Performance Summary:
+  U=1  (no unroll):     0.166 ms
+  Best (U=16):          0.151 ms  (speedup: 1.10x)
+  Worst (U=32):         0.204 ms
+
+Efficiency vs bandwidth limit: 44.1%
+  → COMPUTE-LIMITED: Loop overhead and ILP dominate
+
+Unrolling Speedups (vs U=1):
+  U=2:   0.85x
+  U=4:   1.09x
+  U=8:   1.09x
+  U=16:  1.10x
+  U=32:  0.82x
+
+Performance saturates around U=16
+Further unrolling provides diminishing returns
+
+
+================================================================================
+COMPARISON: -O0 vs -O2
+================================================================================
+
+
+DOUBLE:
+  U │   -O0 (ms) │   -O2 (ms) │ Compiler Speedup │ Manual helps at -O2?
+────┼────────────┼────────────┼──────────────────┼─────────────────────
+  1 │      2.737 │      1.175 │        2.33x     │ ─
+  2 │      2.685 │      0.777 │        3.45x     │ ✓ Yes
+  4 │      2.637 │      0.762 │        3.46x     │ ✓ Yes
+  8 │      2.703 │      0.732 │        3.69x     │ ✓ Yes
+ 16 │      2.666 │      0.760 │        3.51x     │ ✓ Yes
+ 32 │      2.681 │      0.809 │        3.31x     │ ✓ Yes
+
+  Best manual speedup at -O0: 1.04x
+  Best manual speedup at -O2: 1.60x
+  → Manual unrolling STILL BENEFICIAL with -O2
+
+
+FLOAT:
+  U │   -O0 (ms) │   -O2 (ms) │ Compiler Speedup │ Manual helps at -O2?
+────┼────────────┼────────────┼──────────────────┼─────────────────────
+  1 │      2.669 │      0.791 │        3.37x     │ ─
+  2 │      2.672 │      0.761 │        3.51x     │ ✗ No
+  4 │      2.625 │      0.754 │        3.48x     │ ✗ No
+  8 │      2.652 │      0.783 │        3.39x     │ ✗ No
+ 16 │      2.650 │      0.752 │        3.52x     │ ✗ No
+ 32 │      2.636 │      0.752 │        3.51x     │ ✗ No
+
+  Best manual speedup at -O0: 1.02x
+  Best manual speedup at -O2: 1.05x
+  → Compiler auto-vectorization makes manual unrolling UNNECESSARY
+
+
+INT:
+  U │   -O0 (ms) │   -O2 (ms) │ Compiler Speedup │ Manual helps at -O2?
+────┼────────────┼────────────┼──────────────────┼─────────────────────
+  1 │      2.123 │      0.353 │        6.02x     │ ─
+  2 │      1.202 │      0.258 │        4.65x     │ ✓ Yes
+  4 │      0.743 │      0.176 │        4.22x     │ ✓ Yes
+  8 │      0.656 │      0.203 │        3.23x     │ ✓ Yes
+ 16 │      0.631 │      0.156 │        4.04x     │ ✓ Yes
+ 32 │      0.662 │      0.173 │        3.82x     │ ✓ Yes
+
+  Best manual speedup at -O0: 3.36x
+  Best manual speedup at -O2: 2.26x
+  → Manual unrolling STILL BENEFICIAL with -O2
+
+
+SHORT:
+  U │   -O0 (ms) │   -O2 (ms) │ Compiler Speedup │ Manual helps at -O2?
+────┼────────────┼────────────┼──────────────────┼─────────────────────
+  1 │      2.039 │      0.166 │       12.25x     │ ─
+  2 │      1.115 │      0.197 │        5.67x     │ ✗ No
+  4 │      0.733 │      0.153 │        4.78x     │ ✗ No
+  8 │      0.630 │      0.153 │        4.13x     │ ✗ No
+ 16 │      0.597 │      0.151 │        3.95x     │ ✓ Yes
+ 32 │      0.663 │      0.204 │        3.25x     │ ✗ No
+
+  Best manual speedup at -O0: 3.42x
+  Best manual speedup at -O2: 1.10x
+  → Manual unrolling STILL BENEFICIAL with -O2
+
+
+================================================================================
+WHY DOES PERFORMANCE IMPROVE THEN SATURATE?
+================================================================================
+
+1. LOOP OVERHEAD REDUCTION
+   - Each loop iteration has overhead: increment i, compare, branch
+   - U=1:  N iterations → N × overhead
+   - U=4:  N/4 iterations → (N/4) × overhead
+   - Unrolling by U reduces loop overhead by factor of U
+
+2. INSTRUCTION-LEVEL PARALLELISM (ILP)
+   - Modern CPUs can execute multiple independent instructions simultaneously
+   - Unrolling exposes more independent additions: sum += a[i] + a[i+1] + ...
+   - CPU can pipeline/parallelize these additions
+   - Benefit saturates when ILP reaches CPU's execution width (~4-8 ops/cycle)
+
+3. MEMORY BANDWIDTH SATURATION
+   - As loop overhead decreases, memory fetches dominate
+   - Performance becomes limited by memory bandwidth:
+     T_min ≈ (N × sizeof(type)) / BW
+   - Example: 1M doubles × 8 bytes / 30 GB/s ≈ 0.27 ms
+   - No amount of unrolling can go faster than this limit
+
+4. REGISTER PRESSURE
+   - Very high unrolling (U=32) may cause register spills
+   - Intermediate sums need to be stored in memory
+   - Can actually hurt performance beyond optimal U
+
+TYPICAL PATTERN:
+  U=1→2:   Large speedup (loop overhead reduction)
+  U=2→8:   Moderate speedup (ILP exploitation)
+  U=8→16:  Small speedup (approaching bandwidth limit)
+  U=16→32: Minimal/negative (bandwidth-limited, possible register pressure)
+
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================
+
