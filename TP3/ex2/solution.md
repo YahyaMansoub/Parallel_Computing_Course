@@ -1,0 +1,4 @@
+OMP_NUM_THREADS=4 ./PI_Parallel
+pi = 3.141592653598117
+Time = 0.000433 seconds
+
