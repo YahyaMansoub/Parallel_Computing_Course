@@ -1,4 +1,4 @@
-// ex2_master_single.c
+
 #include <stdio.h>
 #include <stdlib.h>
 

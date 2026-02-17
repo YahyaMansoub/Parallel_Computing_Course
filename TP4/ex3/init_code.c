@@ -1,4 +1,4 @@
-// ex3_serial.c
+
 #include <stdio.h>
 #include <math.h>
 #include <time.h>

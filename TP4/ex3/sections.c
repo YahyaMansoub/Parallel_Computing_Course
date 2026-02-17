@@ -1,4 +1,4 @@
-// ex3_sections.c
+
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
