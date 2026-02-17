@@ -5,7 +5,7 @@ int main() {
     #pragma omp parallel
     {
         int tid = omp_get_thread_num();
-        int nthreads = omp_get_num_threads();
+        int nthreads = 4; // I've tried different combinations here 
 
         printf("Hello from the rank %d thread\n", tid);
 
