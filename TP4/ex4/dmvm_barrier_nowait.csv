@@ -1,0 +1,13 @@
+n=40000 m=600 flops_per_run=48000000
+
+threads, v1_time, v1_speedup, v1_eff, v1_mflops, v3_time, v3_speedup, v3_eff, v3_mflops
+1, 0.180201, 1.000, 1.000, 266.37, 0.206975, 1.000, 1.000, 231.91
+# v2(dynamic+nowait) threads=1 time=0.195975 checksum=24000000.0
+2, 0.109343, 1.648, 0.824, 438.99, 0.119701, 1.729, 0.865, 401.00
+# v2(dynamic+nowait) threads=2 time=0.105667 checksum=24000000.0
+4, 0.076500, 2.356, 0.589, 627.45, 0.074536, 2.777, 0.694, 643.99
+# v2(dynamic+nowait) threads=4 time=0.051066 checksum=24000000.0
+8, 0.079429, 2.269, 0.284, 604.31, 0.081483, 2.540, 0.318, 589.08
+# v2(dynamic+nowait) threads=8 time=0.032132 checksum=24000000.0
+16, 0.074306, 2.425, 0.152, 645.97, 0.073403, 2.820, 0.176, 653.92
+# v2(dynamic+nowait) threads=16 time=0.026885 checksum=24000000.0

@@ -39,6 +39,3 @@ gcc dmvm_barrier_nowait.c -O2 -fopenmp -fsanitize=thread -o debug
 
 ## Performance Gain
 Typically 1-5% from removing barrier overhead
-
-
-
