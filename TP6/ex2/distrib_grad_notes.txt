@@ -1,0 +1,156 @@
+TP6 — Derived Types — Exercise 2 (Distributed Gradient Descent)
+===========================================================
+
+What we implement
+-----------------
+We implement batch gradient descent for a linear regression model:
+
+  y_hat = w^T x
+
+with Mean Squared Error (MSE):
+
+  MSE = (1/N) * Σ_i (y_hat_i - y_i)^2
+
+The gradient for MSE is:
+
+  ∂MSE/∂w = (2/N) * X^T (y_hat - y)
+
+So the update is:
+
+  w := w - lr * (2/N) * Σ_i (error_i * x_i)
+
+We distribute the dataset across MPI processes, compute local partial sums, reduce them,
+then every process updates the same weight vector (synchronous training).
+
+Why derived datatypes here
+--------------------------
+Each training sample is a C struct:
+
+  typedef struct {
+    double x[N_FEATURES];
+    double y;
+  } Sample;
+
+In memory, x and y are in a single struct object. MPI does not automatically know the
+layout of that struct, especially if padding/alignment exists. So we create an MPI datatype
+that describes exactly where the fields live inside Sample.
+
+We are required to use MPI_Type_create_struct, so we define 2 blocks:
+  - block 0: N_FEATURES doubles starting at s.x[0]
+  - block 1: 1 double at s.y
+
+We compute displacements with MPI_Get_address so it is correct even with padding.
+
+Dataset distribution
+--------------------
+Process 0 generates the full dataset using generate_data(). We then split N samples among P
+ranks using counts/displs like:
+
+  base = N / P
+  rem  = N % P
+  counts[r] = base + (r < rem ? 1 : 0)
+  displs[r] = prefix sum of counts
+
+This handles the case N not divisible by P.
+
+We scatter with:
+
+  MPI_Scatterv(all, counts, displs, sample_type,
+               local, local_n, sample_type, 0, MPI_COMM_WORLD)
+
+Note: counts/displs are in units of "Sample" elements (not bytes). The derived type tells MPI
+how big one Sample is and how to pack/unpack it.
+
+Local computations
+------------------
+Each rank owns local_n samples. For each epoch, it computes:
+
+  local_loss_sum = Σ_local (error^2)
+  local_grad[j]  = Σ_local (error * x[j])
+
+Then we aggregate:
+
+  global_grad  = Σ_ranks local_grad   (MPI_Allreduce)
+  global_loss  = Σ_ranks local_loss_sum (MPI_Allreduce)
+
+We use Allreduce so every rank receives the global results and can update w identically.
+
+Synchronous update
+------------------
+Once each rank has global_grad, it updates:
+
+  w[j] -= lr * (2/N) * global_grad[j]
+
+All ranks start from same w and apply same update, so weights remain identical.
+
+Stopping + printing
+-------------------
+Because every rank has global MSE, each rank can stop when:
+
+  global_mse < threshold
+
+Rank 0 prints every 10 epochs, plus an early stopping message and timing.
+
+Timing
+------
+We time only the training loop (after Scatterv), using MPI_Wtime(), with barriers to reduce noise.
+
+,  
+after running 
+
+
+mpicc -O3 -march=native -Wall -Wextra distrib_grad.c -o distrib_grad
+mpirun -np 4 ./distrib_grad 200000 1000 0.05 1e-2
+Epoch 1 | Loss (MSE): 2.688379 | w[0]: 0.1501, w[1]: -0.0303
+Epoch 10 | Loss (MSE): 0.573731 | w[0]: 0.9777, w[1]: -0.2603
+Epoch 20 | Loss (MSE): 0.160918 | w[0]: 1.3184, w[1]: -0.4448
+Epoch 30 | Loss (MSE): 0.066207 | w[0]: 1.4371, w[1]: -0.5758
+Epoch 40 | Loss (MSE): 0.032089 | w[0]: 1.4783, w[1]: -0.6691
+Epoch 50 | Loss (MSE): 0.016466 | w[0]: 1.4926, w[1]: -0.7355
+Early stopping at epoch 58 — loss 0.009893 < 1.0e-02
+Training time: 0.014 seconds (MPI)
+
+
+
+After running the benchmark  
+
+./bench.sh
+Running P=1 ...
+Running P=2 ...
+Running P=3 ...
+Running P=4 ...
+Running P=5 ...
+Running P=6 ...
+Running P=7 ...
+Running P=8 ...
+Running P=9 ...
+--------------------------------------------------------------------------
+There are not enough slots available in the system to satisfy the 9
+slots that were requested by the application:
+
+  ./distrib_grad
+
+Either request fewer procs for your application, or make more slots
+available for use.
+
+A "slot" is the PRRTE term for an allocatable unit where we can
+launch a process.  The number of slots available are defined by the
+environment in which PRRTE processes are run:
+
+  1. Hostfile, via "slots=N" clauses (N defaults to number of
+     processor cores if not provided)
+  2. The --host command line parameter, via a ":N" suffix on the
+     hostname (N defaults to 1 if not provided)
+  3. Resource manager (e.g., SLURM, PBS/Torque, LSF, etc.)
+  4. If none of a hostfile, the --host command line parameter, or an
+     RM is present, PRRTE defaults to the number of processor cores
+
+In all the above cases, if you want PRRTE to default to the number
+of hardware threads instead of the number of processor cores, use the
+--use-hwthread-cpus option.
+
+Alternatively, you can use the --map-by :OVERSUBSCRIBE option to ignore the
+number of available slots when deciding the number of processes to
+launch.
+--------------------------------------------------------------------------1.0e
+
