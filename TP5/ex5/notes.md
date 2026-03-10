@@ -17,3 +17,6 @@ CSV,4,100000000,0.124444,0.031300,3.975871,0.993968
 then i did 
 
  for p in 1 2 4 8; do   mpirun -np $p ./pi_mpi 200000000 | grep '^CSV'; done > results.csv
+
+
+ 
